@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<agenda>
+    <anotacion>
+        <nombre>Alicia</nombre>
+        <direccion>Av. de Europa, 25</direccion>
+        <telefono>912495496</telefono>
+    </anotacion>
+    <anotacion>
+        <nombre>Rosa</nombre>
+        <direccion>Camino Viejo, 53</direccion>
+        <telefono>965475843</telefono>
+    </anotacion>
+    <anotacion>
+        <nombre>Luis</nombre>
+        <direccion>Calle Nueva, 20</direccion>
+        <telefono>676756543</telefono>
+    </anotacion>
+   
+</agenda>
