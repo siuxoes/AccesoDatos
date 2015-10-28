@@ -10,5 +10,5 @@ package Practica1_9;
  * @author siuxoes
  */
 public class NewClass {
-    
+    private String tT;
 }
