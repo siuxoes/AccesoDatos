@@ -165,10 +165,11 @@ public class EscritoresScanner {
             DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = builderFactory.newDocumentBuilder();
             Document document = builder.parse(new InputSource("escritores.xml"));
-            NodeList nodes = document.getElementsByTagName("escritores");
+            NodeList nodes = document.getElementsByTagName("escritor");
             System.out.println("Indique el nombre del elemento que desea poner a todos: ");
+            System.out.println(nodes.getLength());
             String elemento = in.nextLine();
-            for (int i = 0; i <= nodes.getLength(); i++) {
+            for (int i = 0; i < nodes.getLength(); i++) {
                 Node escritor = document.getElementsByTagName("escritor").item(i);
                 Element usuario = document.createElement(elemento);
                 System.out.println("Ingrese el valor del atributo creado para el escritor: " + document.getElementsByTagName("nombre").item(i).getTextContent());
@@ -311,7 +312,7 @@ public class EscritoresScanner {
         EscritoresScanner escritoresScanner = new EscritoresScanner();
         //escritoresScanner.añadirElemento();
         //escritoresScanner.eliminarElemento();
-        escritoresScanner.modificarDato();
+        //escritoresScanner.modificarDato();
         //escritoresScanner.listarEscritor();
         //escritoresScanner.listarRecursivo();
     }
