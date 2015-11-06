@@ -11,7 +11,6 @@ import java.beans.MethodDescriptor;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -51,10 +50,5 @@ public class Principal {
             Method gs1Method = Principal.class.getMethod(x, new Class[] {});
             gs1Method.invoke(principal, new Object[] {});
         }
-        
-        
-		ArrayList<Integer> weeklyTemperatures = new ArrayList<Integer>();
-    weeklyTemperatures.add(78);
-        
     }
 }
