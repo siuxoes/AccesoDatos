@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><escritores>
 
   <escritor>
-        <nombre>Rodrigo</nombre>
+        <nombre>Sebastian</nombre>
         <nacimiento>1 de abril de 1929</nacimiento>
 		<edad>34</edad>
 	<LibrosEscritos>25</LibrosEscritos><Casado>Si</Casado><Loco>si</Loco><lala>si</lala></escritor>

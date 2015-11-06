@@ -312,7 +312,7 @@ public class EscritoresScanner {
         EscritoresScanner escritoresScanner = new EscritoresScanner();
         //escritoresScanner.añadirElemento();
         //escritoresScanner.eliminarElemento();
-        //escritoresScanner.modificarDato();
+        escritoresScanner.modificarDato();
         //escritoresScanner.listarEscritor();
         //escritoresScanner.listarRecursivo();
     }
