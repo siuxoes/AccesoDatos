@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 23, 2015 11:24:41 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="appHibernateSebastianLeonte.Vuelos" table="vuelos" catalog="gestiondevuelos" optimistic-lock="version">
+        <id name="codVuelo" type="string">
+            <column name="COD_VUELO" length="10" />
+            <generator class="assigned" />
+        </id>
+        <property name="horaSalida" type="string">
+            <column name="HORA_SALIDA" length="15" />
+        </property>
+        <property name="destino" type="string">
+            <column name="DESTINO" length="15" />
+        </property>
+        <property name="procedencia" type="string">
+            <column name="PROCEDENCIA" length="15" />
+        </property>
+        <property name="plazasFumador" type="java.lang.Integer">
+            <column name="PLAZAS_FUMADOR" />
+        </property>
+        <property name="plazasNoFumador" type="java.lang.Integer">
+            <column name="PLAZAS_NO_FUMADOR" />
+        </property>
+        <property name="plazasTurista" type="java.lang.Integer">
+            <column name="PLAZAS_TURISTA" />
+        </property>
+        <property name="plazasPrimera" type="java.lang.Integer">
+            <column name="PLAZAS_PRIMERA" />
+        </property>
+    </class>
+</hibernate-mapping>

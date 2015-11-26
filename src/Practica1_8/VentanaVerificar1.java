@@ -62,7 +62,6 @@ public class VentanaVerificar1 extends javax.swing.JFrame {
     
     public void crearUsuario() throws SQLException{
         textoUsuario = usuario.getText();
-        
         if(comprobarUsuarioExistente(devolverListaUsuarios(), textoUsuario)){
             String passString = new String(contraseña.getPassword());
             String instruccion = "insert into usuarios values(null, \""+textoUsuario+"\",\""+passString+"\")";
@@ -72,47 +71,36 @@ public class VentanaVerificar1 extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Usuario ya existente:" + textoUsuario);
         }
     }
+    public void mostrarErrorContraseña(){}
     
     public void cambiarContraseña() throws SQLException, Exception{
-        textoUsuario = usuario.getText();
-
-        if(comprobarUsuarioExistente(devolverListaUsuarios(), textoUsuario)){
-            JOptionPane.showMessageDialog(rootPane, "Usuario :" + textoUsuario+"\nNo Existente");
+        if(comprobarUsuarioExistente(devolverListaUsuarios(), usuario.getText())){
+            JOptionPane.showMessageDialog(rootPane, "Usuario :" + usuario.getText()+"\nNo Existente");
         }else if(comprobarUsuario()==1){
-            String primer="";
-            String segundo="";
-            JPanel panel = new JPanel();
-            JLabel label = new JLabel("Contraseña:");
-            JPasswordField pass = new JPasswordField(10);
-            panel.add(label);
-            panel.add(pass);
-            String[] options = new String[]{"OK", "Cancelar"};
-            int option = JOptionPane.showOptionDialog(null, panel, "Elija su contraseña",
-                    JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
-                    null, options, options[1]);
-            if(option == 0) // pressing OK button
-            {
-                char[] password = pass.getPassword();
-                primer = new String(password);
+            String primer="", segundo="";
+            JPanel panel = new JPanel(); JLabel label = new JLabel("Contraseña:");
+            JPasswordField pass = new JPasswordField(15);
+            panel.add(label); panel.add(pass);
+            for(int i=0 ; i<2 ; i++){
+                int option = JOptionPane.showOptionDialog(null, panel, "Elija su contraseña",
+                        JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, new String[]{"OK", "Cancelar"}, "Cancelar");
+                if(option == 0) // USUARIO PRESSIONA OK
+                {
+                    if(validarContraseña(new String(pass.getPassword()))){ //COMPROBAR LA CONTRASEÑA
+                        if(i==0){
+                            primer = new String(pass.getPassword()); // PRIMERA CONTRASEÑA
+                        }else{
+                            segundo = new String(pass.getPassword()); // SEGUNDA CONTRASEÑA
+                        }
+                    }
+                }
             }
-            pass.setText("");
-            option = JOptionPane.showOptionDialog(null, panel, "Elija su contraseña",
-                    JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
-                    null, options, options[1]);
-            if(option == 0) // pressing OK button
-            {
-                char[] password = pass.getPassword();
-                segundo = new String(password);
-            }
-            if(primer.equals(segundo) && (!primer.equals("") || !segundo.equals(""))){
-                textoUsuario = "\"" + usuario.getText() + "\"";
-                String instruccion = "update usuarios set contraseña=\""+primer+"\" where nombre="+textoUsuario;
+            if(primer.equals(segundo) && (!primer.equals("") || !segundo.equals(""))){ 
+                String instruccion = "update usuarios set contraseña=\""+primer+"\" where nombre="+"\"" 
+                        + usuario.getText() + "\"";
                 enviar(instruccion);
-                JOptionPane.showMessageDialog(rootPane, "Contraseña cambiada correctamente:" + textoUsuario);
-                Reiniciar();
-            }else{
-                JOptionPane.showMessageDialog(rootPane, "Contraseña no coincide");
-                Reiniciar();
+                JOptionPane.showMessageDialog(rootPane, "Contraseña cambiada correctamente:" + "\"" 
+                        + usuario.getText() + "\"");
             }
         }
     }
@@ -122,8 +110,8 @@ public class VentanaVerificar1 extends javax.swing.JFrame {
         String passString = new String(contraseña.getPassword());
         String contraseña2 = conectar("select contraseña from usuarios where nombre="+textoUsuario);
         if(contraseña2.equals(passString)){
-           JOptionPane.showMessageDialog(rootPane, "Bienvenido: " + textoUsuario);
-           return 1;
+            JOptionPane.showMessageDialog(rootPane, "Bienvenido: " + textoUsuario);
+            return 1;
         }else{
             JOptionPane.showMessageDialog(rootPane, "Usuario o contraseña equivocadas");
             Reiniciar();
@@ -153,11 +141,30 @@ public class VentanaVerificar1 extends javax.swing.JFrame {
         return cadena;
     }
     
-    public void validarContraseña(){
-        textoContraseña = new String(contraseña.getPassword());
-        if(textoContraseña.matches("[0-9a-zA-Z]+")){
+    public boolean validarContraseña(String contrasenia){
+        if(!comprobarContrasenia(contrasenia)){
             JOptionPane.showMessageDialog(rootPane, "Contraseña No cumple: XXX");
+            return false;
         }
+        return true;
+    }
+    
+    public static boolean comprobarNumero(char primer){
+        return Character.isDigit(primer);
+    }
+    
+    public static boolean comprobarMayuscula(String contrasenia){
+        return !contrasenia.equals(contrasenia.toLowerCase());
+    }
+    
+    public static boolean comprobarContrasenia(String contrasenia){
+        String regex = "^([A-Za-z0-9_]){8,}$";
+        if(!comprobarNumero(contrasenia.charAt(0))){
+            if(comprobarMayuscula(contrasenia)){
+                return contrasenia.matches(regex); // SE CUMPLE
+            }
+        }
+        return false;
     }
     
     public LinkedList devolverListaUsuarios() {
@@ -198,7 +205,7 @@ public class VentanaVerificar1 extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "El campo usuario no debe estar vacio");
             reiniciarBotones();
         }
-        if(contraseña.getText().equals("")){
+        if(new String(contraseña.getPassword()).equals("")){
             JOptionPane.showMessageDialog(rootPane, "El campo contraseña no debe estar vacio");
             reiniciarBotones();
         }
@@ -364,7 +371,7 @@ public class VentanaVerificar1 extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCambioContraseñaActionPerformed
 
     private void contraseñaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_contraseñaKeyPressed
-
+        
         if (evt.getKeyCode()==KeyEvent.VK_ENTER){
             btnIngresar.setEnabled(true);
             btnCancelar.setEnabled(true);

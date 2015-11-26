@@ -1,0 +1,82 @@
+7.
+
+>from Vuelos where destino= 'MADRID'
+100	AV-DC2-269	02/04/99-12:00	MADRID	LA HAYA	100	180	20
+100	IB-98779	02/04/99-08:00	MADRID	LIMA	200	250	50
+
+>from Vuelos v where v.destino= 'MADRID' or v.destino= 'BARCELONA'
+100	AI-1289-9	02/04/99-14:30	BARCELONA	BONN	150	180	70
+100	AV-DC2-269	02/04/99-12:00	MADRID	LA HAYA	100	180	20
+100	IB-98779	02/04/99-08:00	MADRID	LIMA	200	250	50
+
+>select codVuelo, procedencia, destino from Vuelos
+AI-1289-9	BONN	BARCELONA
+AI-D7-347	MOSCÚ	BILBAO
+AV-DC-347	ROMA	VALENCIA
+AV-DC2-269	LA HAYA	MADRID
+AV-DC9-233	SOFÍA	VALENCIA
+FR-DC-4667	SEVILLA	BRUSELAS
+FR-DC2-269	MANILA	CÓRDOBA
+FR-DC7-247	EL CAIRO	CORDOBA
+IB-98779	LIMA	MADRID
+IB-BA-46DC	MADRID	ROMA
+IB-D5-347	PARIS	ZARAGOZA
+IB-SP-4567	MADRID	PARIS
+SP-DC-438	SEVILLA	MOSCÚ
+
+>select codVuelo as codigo, horaSalida as hora , procedencia, destino from Vuelos order by 2
+IB-D5-347	01/04/99-13:35	PARIS	ZARAGOZA
+AV-DC9-233	01/04/99-17:35	SOFÍA	VALENCIA
+FR-DC2-269	01/04/99-19:00	MANILA	CÓRDOBA
+FR-DC7-247	01/04/99-15:35	EL CAIRO	CORDOBA
+IB-98779	02/04/99-08:00	LIMA	MADRID
+AI-1289-9	02/04/99-14:30	BONN	BARCELONA
+AV-DC2-269	02/04/99-12:00	LA HAYA	MADRID
+IB-SP-4567	27/03/99-10:30	MADRID	PARIS
+IB-BA-46DC	28/03/99-12:30	MADRID	ROMA
+FR-DC-4667	28/03/99-13:30	SEVILLA	BRUSELAS
+AV-DC-347	29/03/99-13:35	ROMA	VALENCIA
+SP-DC-438	30/03/99-09:20	SEVILLA	MOSCÚ
+AI-D7-347	30/03/99-13:35	MOSCÚ	BILBAO
+
+>select count(codVuelo) as vuelos from Vuelos where horaSalida>'1-06-1999'
+6
+
+>select procedencia, count(codVuelo) as vuelos from Vuelos group by procedencia
+BONN	1
+EL CAIRO	1
+LA HAYA	1
+LIMA	1
+MADRID	2
+MANILA	1
+MOSCÚ	1
+PARIS	1
+ROMA	1
+SEVILLA	2
+SOFÍA	1
+
+>select procedencia, count(codVuelo) from Vuelos group by procedencia having count(codVuelo)>1
+MADRID	2
+SEVILLA	2
+
+8.
+
+>Selecciona el código de vuelo de todos los vuelos de Barcelona con destino Madrid.
+select codVuelo from Vuelos where procedencia='BARCELONA where destino='MADRID"'
+
+>Selecciona la procedencia de todos los vuelos con destino Madrid para el día 2/4/99 en
+orden alfabético.
+select procedencia from Vuelos where horaSalida='2/4/99' and destino='MADRID' order by 1
+
+>Selecciona el código de vuelo, total de plazas (suma) de los vuelos de procedencia Lima.
+select codVuelo, sum(PLAZAS_FUMADOR +  PLAZAS_NO_FUMADOR + PLAZAS_TURISTA + PLAZAS_PRIMERA) from Vuelos where procedencia='LIMA'
+
+>Selecciona cuantos vuelos hay cuyo código de vuelo comience por FR.
+select count(codVuelo) from Vuelos where codVuelo like '%FR%'
+
+>Selecciona cuantos vuelos hay para cada destino.
+select destino, count(codVuelo) as vuelos from Vuelos group by destino
+
+>Selecciona código de vuelo, procedencia y destino para aquellos vuelos con más de 100
+plazas para fumador.
+select codVuelo, procedencia, destino from Vuelos where PLAZAS_FUMADOR>100
