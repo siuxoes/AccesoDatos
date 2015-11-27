@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 package Examen2014;
 
 import java.io.EOFException;
@@ -29,7 +29,7 @@ public class ManejoFichero{
         ObjectOutputStream objectOutputStream;
         try{
             objectOutputStream = new ObjectOutputStream(new FileOutputStream(file));
-            String titulos[] ={"Vertigo", "Atrapame si puedes", "Los hombres que no amaban a las mujeres", "Pulp Fiction", "Psicosis", "El Señor de la guerra", "Delicatessen", "El club de los poetas muertos"}; 
+            String titulos[] ={"Vertigo", "Atrapame si puedes", "Los hombres que no amaban a las mujeres", "Pulp Fiction", "Psicosis", "El Señor de la guerra", "Delicatessen", "El club de los poetas muertos"};
             int anios[] = {1955,2002,2011,1994,1960,2005,1991,1989};
             for(int i=0; i<titulos.length;i++){
                 objectOutputStream.writeObject(new Pelicula((i+1), titulos[i], anios[i]));
@@ -53,13 +53,9 @@ public class ManejoFichero{
                 }
             }
         } catch (FileNotFoundException e) {
-
         } catch(EOFException eofe){
-
         } catch (IOException e) {
-
         } catch (ClassNotFoundException e) {
-
         }finally{
             return encontrado;
         }
@@ -77,22 +73,21 @@ public class ManejoFichero{
                 }
             }
         } catch (FileNotFoundException e) {
-
+            
         } catch(EOFException eofe){
-
+            
         } catch (IOException e) {
-
+            
         } catch (ClassNotFoundException e) {
-
+            
         }finally{
             return anio;
         }
     }
     
     public static void main(String[] args) {
-          try{
+        try{
             ManejoFichero fichero = new ManejoFichero();
-         
             System.out.println("Introduzca el nombre del fichero: ");
             File file = new File((in.nextLine() + ".obs"));
             if(file.exists()){
@@ -104,31 +99,28 @@ public class ManejoFichero{
                     main(args);
                 }
             }else{
-               fichero.escribirInicial(file);
+                fichero.escribirInicial(file);
             }
             int opcion = 0;
             System.out.println("1 Ver los datos de una película dado un código de película dado por teclado");
             System.out.println("2 Año de producción de la película más antigua.");
             System.out.println("3 Salir");
             opcion = Integer.parseInt(in.nextLine());
-
             do{
-             if(opcion == 1){
-                        System.out.println("Nombre de la pelicula");
-                        String titulo = in.nextLine();
-                        System.out.println(titulo);   
-                        System.out.println(fichero.busquedaTitulo(titulo, file));
-             }else if(opcion == 2){
-                   
-                        System.out.println(fichero.busquedaAño(file));
-             }
+                if(opcion == 1){
+                    System.out.println("Nombre de la pelicula");
+                    String titulo = in.nextLine();
+                    System.out.println(titulo);
+                    System.out.println(fichero.busquedaTitulo(titulo, file));
+                }else if(opcion == 2){
+                    System.out.println(fichero.busquedaAño(file));
+                }
                 System.out.println("1 Ver los datos de una película dado un código de película dado por teclado");
                 System.out.println("2 Año de producción de la película más antigua.");
                 System.out.println("3 Salir");
-                     opcion = Integer.parseInt(in.nextLine());
-
+                opcion = Integer.parseInt(in.nextLine());
             }while(Integer.parseInt(in.nextLine()) != 3);
         }catch(Exception e){}
     }
-            
+    
 }
