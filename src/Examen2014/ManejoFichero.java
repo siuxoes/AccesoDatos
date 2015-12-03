@@ -23,7 +23,7 @@ import java.util.logging.Logger;
  */
 public class ManejoFichero{
     
-    private static Scanner in = new Scanner(System.in);
+    private static final Scanner in = new Scanner(System.in);
     
     public void escribirInicial(File file){
         ObjectOutputStream objectOutputStream;
@@ -54,8 +54,7 @@ public class ManejoFichero{
             }
         } catch (FileNotFoundException e) {
         } catch(EOFException eofe){
-        } catch (IOException e) {
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
         }finally{
             return encontrado;
         }
@@ -102,7 +101,7 @@ public class ManejoFichero{
                 fichero.escribirInicial(file);
             }
             int opcion = 0;
-            System.out.println("1 Ver los datos de una película dado un código de película dado por teclado");
+            System.out.println("1 Ver los datos de una película dado un nombre de película dado por teclado");
             System.out.println("2 Año de producción de la película más antigua.");
             System.out.println("3 Salir");
             opcion = Integer.parseInt(in.nextLine());
@@ -118,7 +117,6 @@ public class ManejoFichero{
                 System.out.println("1 Ver los datos de una película dado un código de película dado por teclado");
                 System.out.println("2 Año de producción de la película más antigua.");
                 System.out.println("3 Salir");
-                opcion = Integer.parseInt(in.nextLine());
             }while(Integer.parseInt(in.nextLine()) != 3);
         }catch(Exception e){}
     }
